@@ -1,0 +1,35 @@
+{
+  "name": "barycentric",
+  "version": "0.0.0",
+  "description": "Converts points to barycentric coordinates",
+  "main": "barycentric.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "numeric": "~1.2.6"
+  },
+  "devDependencies": {
+    "tap": "~0.4.1"
+  },
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikolalysenko/barycentric.git"
+  },
+  "keywords": [
+    "simplex",
+    "triangle",
+    "tetrahedra",
+    "line",
+    "barycentric",
+    "coordinate",
+    "geometry"
+  ],
+  "author": "Mikola Lysenko",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "9158ac95623661f3c955980e4148123b72994601"
+}
