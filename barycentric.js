@@ -15,13 +15,16 @@ function reduce(x) {
 function barycentric(simplex, point) {
   var d = point.length
   var A = new Array(d+1)
-  for(var i=0; i<=d; ++i) {
+  for(var i=0; i<d; ++i) {
     var row = new Array(d+1)
-    for(var j=0; j<d; ++j) {
-      row[j] = simplex[i][j]
+    for(var j=0; j<=d; ++j) {
+      row[j] = simplex[j][i]
     }
-    row[d] = 1
     A[i] = row
+  }
+  A[d] = new Array(d+1)
+  for(var i=0; i<=d; ++i) {
+    A[d][i] = 1
   }
 
   var b = new Array(d+1)
