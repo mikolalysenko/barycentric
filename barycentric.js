@@ -1,16 +1,44 @@
-"use strict"
-
-var numeric = require("numeric")
-
-function barycentric(simplex, point) {
-  var A = numeric.transpose(simplex)
-  A.push(numeric.rep([simplex.length], 1.0))
-  var b = new Array(point.length+1)
-  for(var i=0, il=point.length; i<il; ++i) {
-    b[i] = point[i]
-  }
-  b[point.length] = 1.0
-  return numeric.solve(A, b)
-}
+'use strict'
 
 module.exports = barycentric
+
+var solve = require('robust-linear-solve')
+
+function reduce(x) {
+  var r = 0
+  for(var i=0; i<x.length; ++i) {
+    r += x[i]
+  }
+  return r
+}
+
+function barycentric(simplex, point) {
+  var d = point.length
+  var A = new Array(d+1)
+  for(var i=0; i<=d; ++i) {
+    var row = new Array(d+1)
+    for(var j=0; j<d; ++j) {
+      row[j] = simplex[i][j]
+    }
+    row[d] = 1
+    A[i] = row
+  }
+
+  var b = new Array(d+1)
+  for(var i=0; i<d; ++i) {
+    b[i] = point[i]
+  }
+  b[d] = 1.0
+
+  var x = solve(A, b)
+  var w = reduce(x[d+1])
+  
+  if(w === 0) {
+    w = 1.0
+  }
+  var y = new Array(d+1)
+  for(var i=0; i<=d; ++i) {
+    y[i] = reduce(x[i]) / w
+  }
+  return y
+}
